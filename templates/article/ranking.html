@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}Images ranking{% endblock %}
+
+{% block content %}
+    <h1>Images ranking</h1>
+    <ol>
+        {% for post in most_viewed %}
+            <li>
+                <a href="{{ post.get_absolute_url }}">
+                    {{ post.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ol>
+{% endblock %}

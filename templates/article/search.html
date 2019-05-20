@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Search
+{% endblock %}
+
+{% block content %}
+    {% if query %}
+        <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+            <h1>Post containing {{ query }}</h1>
+            <h3>
+                {% with results.count as total_results %}
+                    Found {{ total_results }} result{{ total_results|pluralize }}
+                {% endwith %}
+            </h3>
+            {% for post in results %}
+                <h4>
+                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+                </h4>
+                {{ post.body|truncatewords:5 }}
+            {% empty %}
+                <p>There are no results for your query.</p>
+            {% endfor %}
+            <p><a href="{% url 'article:post_search' %}">Search again</a></p>
+        </div>
+    {% else %}
+        <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+            <h1>Search for posts</h1>
+            <form action="" method="get">
+                {{ form.as_p }}
+                <input type="submit" value="Search" class="w3-button w3-white">
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

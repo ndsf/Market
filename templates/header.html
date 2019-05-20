@@ -1,0 +1,66 @@
+<!-- 定义导航栏 -->
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white" style="z-index:3;width:300px;" id="mySidebar"><br>
+    <div class="w3-container">
+        <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
+           title="close menu">
+            <i class="fa fa-remove"></i>
+        </a>
+        <!--<img src="https://www.w3schools.com/w3images/avatar_g2.jpg" style="width:45%;" class="w3-round"><br><br>-->
+        {% load thumbnail %}
+        {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+            <a href="{{ user.get_absolute_url }}">
+                <img src="{{ im.url }}" style="width:45%;" class="w3-round"><br><br>
+            </a>
+        {% endthumbnail %}
+
+        <h4><b>MARKET</b></h4>
+        <p class="w3-text-grey">By ndsf</p>
+    </div>
+    <div class="w3-bar-block">
+        <a href="{% url 'article:post_list' %}" onclick="w3_close()"
+           class="w3-bar-item w3-button w3-padding w3-text-teal"><i
+                class="fas fa-th-large fa-fw w3-margin-right"></i>POSTS</a>
+        <a href="{% url 'information:user_list' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
+                class="fas fa-user fa-fw w3-margin-right"></i>USERS</a>
+        <a href="{% url 'article:post_create' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
+                class="fas fa-plus-square fa-fw w3-margin-right"></i>CREATE</a>
+
+        {% if user.is_authenticated %}
+            <!-- 如果用户已经登录，则显示用户名下拉框 -->
+            <a href="{% url 'information:dashboard' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
+                    class="fas fa-tachometer-alt fa-fw w3-margin-right"></i>DASHBOARD</a>
+            <a href="{% url 'information:profile_update' %}" onclick="w3_close()"
+               class="w3-bar-item w3-button w3-padding"><i
+                    class="fas fa-id-card fa-fw w3-margin-right"></i>UPDATE PROFILE</a>
+            <a href="{% url 'account_logout' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
+                    class="fas fa-sign-out-alt fa-fw w3-margin-right"></i>LOGOUT</a>
+            <!-- 如果用户未登录，则显示 “登录” -->
+        {% else %}
+            <a href="{% url 'account_login' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
+                    class="fa fa-envelope fa-fw w3-margin-right"></i>LOGIN</a>
+            <!-- if 语句在这里结束 -->
+        {% endif %}
+    </div>
+    <div class="w3-panel w3-large">
+        <i class="fab fa-github w3-hover-opacity"></i>
+        <i class="fab fa-google w3-hover-opacity"></i>
+    </div>
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+     title="close side menu" id="myOverlay"></div>
+
+<script>
+    // Script to open and close sidebar
+    function w3_open() {
+        document.getElementById("mySidebar").style.display = "block";
+        document.getElementById("myOverlay").style.display = "block";
+    }
+
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+        document.getElementById("myOverlay").style.display = "none";
+    }
+</script>

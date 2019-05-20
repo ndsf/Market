@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% block title %}People{% endblock %}
+{% block content %}
+    <header>
+        {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+            <a href="{{ user.get_absolute_url }}"><img src="{{ im.url }}" style="width:65px;"
+                                                       class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+            </a>
+        {% endthumbnail %}
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+                class="fa fa-bars"></i></span>
+        <div class="w3-container">
+            <h1><b>Users</b></h1>
+            <div class="w3-section w3-bottombar w3-padding-16">
+                <span class="w3-margin-right">Filter:</span>
+                <button class="w3-button w3-black">ALL</button>
+            </div>
+        </div>
+    </header>
+    <div class="w3-row-padding">
+        {% for user in users %}
+            <div class="w3-col l3 m6 w3-margin-bottom">
+                <div class="w3-display-container">
+                    <div class="w3-display-topleft w3-black w3-padding">
+                        {{ user.username }}
+                    </div>
+                    {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+                        <a href="{{ user.get_absolute_url }}">
+                            <img src="{{ im.url }}" style="width:100%">
+                        </a>
+                    {% endthumbnail %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

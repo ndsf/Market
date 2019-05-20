@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% load article_tags %}
+{% load information_tags %}
+{% load thumbnail %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block content %}
+    <div class="w3-row">
+        <!-- Big cards -->
+        <div class="w3-col l8 s12">
+            <!-- Detail card -->
+            <div class="w3-card-4 w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Posts</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    {% include "article/list_ajax.html" with posts=user.posts_created.all %}
+                </ul>
+            </div>
+            <hr>
+            <!-- END BIG CARDS -->
+        </div>
+
+        <!-- Introduction menu -->
+        <div class="w3-col l4">
+            <!-- About Card -->
+            <div class="w3-card w3-margin w3-margin-top">
+                {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+                    <a href="{{ user.get_absolute_url }}">
+                        <img src="{{ im.url }}" style="width:100%">
+                    </a>
+                {% endthumbnail %}
+                <div class="w3-container w3-white">
+                    <h4><b>{{ user.username }}</b></h4>
+                    <button class="w3-button {% follow_color request.user user %}" id="follow-button">
+                        <i class="fas fa-heart"></i>
+                        <span class="count">
+                        <span class="total">{% followers_count user %}</span>
+                        followers
+                    </span></span>
+                    </button>
+                    <button class="w3-button w3-light-gray">
+                        <i class="fas fa-envelope"></i>
+                        Contact</span>
+                    </button>
+
+                    <a href="#" data-id="{{ user.id }}"
+                       data-action="{% follow_action request.user user %}" class="follow button" id="follow-link" style="display: none">
+                        {% show_follow request.user user %}
+                    </a>
+                    <p>{{ user.profile.description|markdown }}</p>
+                </div>
+            </div>
+            <hr>
+            <!-- END Introduction Menu -->
+        </div>
+    </div>
+{% endblock %}
+{% block domready %}
+    <script>
+        $(document).ready(function () {
+            $('a.follow').click(function (e) {
+                e.preventDefault();
+                $.post('{% url "information:user_follow" %}',
+                    {
+                        id: $(this).data('id'),
+                        action: $(this).data('action')
+                    },
+                    function (data) {
+                        if (data['status'] == 'ok') {
+                            var previous_action = $('a.follow').data('action');
+
+                            // toggle data-action
+                            $('a.follow').data('action',
+                                previous_action == 'follow' ? 'unfollow' : 'follow');
+                            // toggle link text
+                            $('a.follow').text(
+                                previous_action == 'follow' ? 'Unfollow' : 'Follow');
+
+                            // update total followers
+                            var previous_followers = parseInt(
+                                $('span.count .total').text());
+                            $('span.count .total').text(previous_action == 'follow' ? previous_followers + 1 : previous_followers - 1);
+
+                            if (previous_action == 'follow')
+                                $('#follow-button').removeClass('w3-light-gray').addClass('w3-black');
+                            else $('#follow-button').removeClass('w3-black').addClass('w3-light-gray');
+                        }
+                    }
+                );
+            });
+            $('#follow-button').click(function (e) {
+                $('#follow-link').click();
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

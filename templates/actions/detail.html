@@ -1,0 +1,33 @@
+{% load thumbnail %}
+
+{% with user=action.user profile=action.user.profile %}
+    {% if action.target %}
+        {% with target=action.target %}
+            {% if target.profile.avatar %}
+                {% thumbnail target.profile.avatar "80x80" crop="100%" as im %}
+                    <a href="{{ target.get_absolute_url }}">
+                        <img src="{{ im.url }}" alt="Image" class="w3-left w3-margin-right"
+                             style="width:50px">
+                    </a>
+                {% endthumbnail %}
+            {% elif target.avatar %}
+                {% thumbnail target.avatar "80x80" crop="100%" as im %}
+                    <a href="{{ target.get_absolute_url }}">
+                        <img src="{{ im.url }}" alt="Image" class="w3-left w3-margin-right"
+                             style="width:50px">
+                    </a>
+                {% endthumbnail %}
+            {% endif %}
+        {% endwith %}
+    {% endif %}
+    <span class="w3-large">
+        <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
+        {{ action.verb }}
+        {% if action.target %}
+            {% with target=action.target %}
+                <a href="{{ target.get_absolute_url }}">{{ target }}</a>
+            {% endwith %}
+        {% endif %}
+    </span><br>
+    <span>{{ action.created|timesince }} ago</span>
+{% endwith %}

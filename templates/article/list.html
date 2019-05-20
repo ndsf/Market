@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load article_tags %}{% load thumbnail %}
+{% block title %}Market{% endblock %}
+
+{% block content %}
+    <header>
+        {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+            <a href="{{ user.get_absolute_url }}"><img src="{{ im.url }}" style="width:65px;"
+                                                       class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+            </a>
+        {% endthumbnail %}
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+                class="fa fa-bars"></i></span>
+        <div class="w3-container">
+            <h1><b>Market</b></h1>
+            <div class="w3-section w3-bottombar w3-padding-16">
+                <span class="w3-margin-right">Filter:</span>
+                <button class="w3-button w3-black">ALL</button>
+                <a href="{% url "article:post_search" %}" class="w3-button w3-white">
+                    <i class="fas fa-search"></i>Search
+                </a>
+            </div>
+        </div>
+
+    </header>
+    <div id="post-list">
+        {% include "article/list_ajax.html" %}
+    </div>
+{% endblock %}
+{% block domready %}
+    <script>
+        $(document).ready(function () {
+            var page = 1;
+            var empty_page = false;
+            var block_request = false;
+
+            $(window).scroll(function () {
+                var margin = $(document).height() - $(window).height() - 200;
+                if ($(window).scrollTop() > margin && empty_page == false && block_request == false) {
+                    block_request = true;
+                    page += 1;
+                    $.get('?page=' + page, function (data) {
+                        if (data == '') {
+                            empty_page = true;
+                        } else {
+                            block_request = false;
+                            $('#post-list').append(data);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

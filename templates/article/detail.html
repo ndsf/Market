@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+{% load article_tags %}
+{% load thumbnail %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block content %}
+    <header>
+        {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+            <a href="{{ user.get_absolute_url }}"><img src="{{ im.url }}" style="width:65px;"
+                                                       class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+            </a>
+        {% endthumbnail %}
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+                class="fa fa-bars"></i></span>
+        <div class="w3-container">
+            <h1><b>{{ post.title }}</b></h1>
+            <div class="w3-section w3-bottombar w3-padding-16">
+                <span class="w3-margin-right">Statistics:</span>
+
+                <span class="count">
+                    <button class="w3-button w3-{% if request.user not in post.users_like.all %}white{% else %}black{% endif %}"
+                            id="like-button">
+                        <i class="fas fa-heart"></i>
+                        <span class="total">{{ post.users_like.count }}</span>
+                    </button>
+                </span>
+
+                <span class="count">
+                    <button class="w3-button w3-white w3-hide-small">
+                        <i class="fas fa-eye"></i>
+                        {{ total_views }}
+                    </button>
+                </span>
+
+                <button class="w3-button w3-white w3-hide-small">
+                    <i class="fas fa-money-bill-alt"></i>
+                    {{ post.price }}
+                </button>
+
+                <a href="{% url "article:post_share" post.id %}" class="w3-button w3-white w3-hide-small"><i
+                        class="fas fa-share"></i>Share</a>
+                <a href="{% url "article:post_update" post.id %}" class="w3-button w3-white w3-hide-small"><i
+                        class="fas fa-edit"></i>Update</a>
+                <a href="{% url "article:post_delete" post.id %}" class="w3-button w3-white w3-hide-small"><i
+                        class="fas fa-trash"></i>Delete</a>
+
+                <!-- Like button-->
+                <a href="#" data-id="{{ post.id }}"
+                   data-action="{% if request.user in post.users_like.all %}un{% endif %}like"
+                   class="like button" id="like-link" style="display: none;">
+                    {% if request.user not in post.users_like.all %}
+                        Like
+                    {% else %}
+                        Unlike
+                    {% endif %}
+                </a>
+
+            </div>
+        </div>
+    </header>
+    <div class="w3-row">
+        <!-- Big cards -->
+        <div class="w3-col l8 s12">
+            <!-- Detail card -->
+            <div class="w3-card-4 w3-margin w3-white">
+                <img src="{{ post.avatar.url }}" style="width:100%">
+                <div class="w3-container">
+                    <h3><b>{{ post.title }}</b></h3>
+                    <h5>Post by <a href="#">{{ post.author }}</a>, <span class="w3-opacity">{{ post.created }}</span>
+                    </h5>
+                </div>
+
+                <div class="w3-container">
+                    <p>{{ post.body|markdown }}</p>
+                    <div class="w3-row">
+                        <div class="w3-col m8 s12">
+                            <p>
+                                <button class="w3-button w3-padding-large w3-white w3-border"><b>CONTACT &raquo;</b>
+                                </button>
+                            </p>
+                        </div>
+                        <div class="w3-col m4 w3-hide-small">
+                            <p><span class="w3-padding-large w3-right"><b>Comments &nbsp;</b> <span
+                                    class="w3-tag">{{ comments.count }}</span></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <!-- Add comment card -->
+            <div class="w3-card-4 w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Add a new comment</h4>
+                </div>
+                <div class="w3-container w3-white">
+                    <form action="" method="post">
+                        {{ comment_form.as_p }}
+                        {% csrf_token %}
+                        <p><input type="submit" value="Add comment"
+                                  class="w3-button w3-padding-large w3-white w3-border"></p>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Comment card -->
+            <div class="w3-card-4 w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Comments</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    {% for comment in comments %}
+                        <li class="w3-padding-16">
+                            {% with user=comment.author %}
+                                {% thumbnail user.profile.avatar "80x80" crop="100%" as im %}
+                                    <a href="{{ user.get_absolute_url }}">
+                                        <img src="{{ im.url }}" alt="Image" class="w3-left w3-margin-right"
+                                             style="width:50px">
+                                    </a>
+                                {% endthumbnail %}
+                                <span class="w3-large">
+                                    Comment {{ forloop.counter }} by <a href="#">{{ user.username }}</a>,
+                                    <span class="w3-opacity">{{ comment.created }}</span>
+                                </span><br>
+                                <span>{{ comment.body|markdown }}</span>
+                            {% endwith %}
+                        </li>
+                    {% empty %}
+                        <div class="w3-container w3-white">
+                            <p>There are no comments yet.</p>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- END BIG CARDS -->
+        </div>
+
+        <!-- Introduction menu -->
+        <div class="w3-col l4">
+            <!-- About Card -->
+            <div class="w3-card w3-margin w3-margin-top">
+                {% thumbnail post.author.profile.avatar "300x300" crop="100%" as im %}
+                    <a href="{{ user.get_absolute_url }}">
+                        <img src="{{ im.url }}" style="width:100%">
+                    </a>
+                {% endthumbnail %}
+                <div class="w3-container w3-white">
+                    <h4><b>{{ post.author.username }}</b></h4>
+                    <p>{{ post.author.profile.description|markdown|truncatewords_html:30 }}</p>
+                </div>
+            </div>
+            <hr>
+            <!-- Liked by card -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Liked by</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    {% for user in post.users_like.all %}
+                        <li class="w3-padding-16">
+                            {% thumbnail user.profile.avatar "80x80" crop="100%" as im %}
+                                <a href="{{ user.get_absolute_url }}">
+                                    <img src="{{ im.url }}" alt="Image" class="w3-left w3-margin-right"
+                                         style="width:50px">
+                                </a>
+                            {% endthumbnail %}
+                            <span class="w3-large">{{ user.username }}</span><br>
+                            <span>{{ user.profile.description|truncatewords_html:5 }}</span>
+                        </li>
+                    {% empty %}
+                        <div class="w3-container w3-white">
+                            <p>Nobody likes this post yet.</p>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+            <hr>
+
+            <!-- Labels / tags -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Tags</h4>
+                </div>
+                <div class="w3-container w3-white">
+                    <p>
+                        {% for tag in post.tags.all %}
+                            <span class="w3-tag w3-light-grey w3-margin-bottom">
+                            {{ tag }}
+                        </span>
+                        {% empty %}
+                            There are no tags yet.
+                        {% endfor %}
+                    </p>
+                </div>
+            </div>
+            <hr>
+
+            <!-- Similar posts card -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Similar posts</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    {% for post in similar_posts %}
+                        <li class="w3-padding-16">
+                            {% thumbnail post.avatar "80x80" crop="100%" as im %}
+                                <a href="{{ post.get_absolute_url }}">
+                                    <img src="{{ im.url }}" alt="Image" class="w3-left w3-margin-right"
+                                         style="width:50px">
+                                </a>
+                            {% endthumbnail %}
+                            <span class="w3-large">{{ post.title|truncatewords:5 }}</span><br>
+                            <span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block">{{ post.body }}</span>
+                        </li>
+                    {% empty %}
+                        <div class="w3-container w3-white">
+                            <p>There are no similar posts yet.</p>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+            <!-- END Introduction Menu -->
+        </div>
+    </div>
+{% endblock %}
+{% block domready %}
+    <script>
+        $(document).ready(function () {
+            $('a.like').click(function (e) {
+                e.preventDefault();
+                $.post('{% url "article:post_like" %}',
+                    {
+                        id: $(this).data('id'),
+                        action: $(this).data('action')
+                    },
+                    function (data) {
+                        if (data['status'] == 'ok') {
+                            var previous_action = $('a.like').data('action');
+
+                            // toggle data-action
+                            $('a.like').data('action', previous_action == 'like' ? 'unlike' : 'like');
+                            // toggle link text
+                            $('a.like').text(previous_action == 'like' ? 'Unlike' : 'Like');
+
+                            // update total likes
+                            var previous_likes = parseInt($('span.count .total').text());
+                            $('span.count .total').text(previous_action == 'like' ? previous_likes + 1 : previous_likes - 1);
+
+                            if (previous_action == 'like')
+                                $('#like-button').removeClass('w3-white').addClass('w3-black');
+                            else $('#like-button').removeClass('w3-black').addClass('w3-white');
+                        }
+                    }
+                );
+            });
+            $('#like-button').click(function (e) {
+                $('#like-link').click();
+                return false;
+            });
+        });
+    </script>
+{% endblock %}

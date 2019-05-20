@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load thumbnail %}
+{% load article_tags %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <header>
+        {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+            <a href="{{ user.get_absolute_url }}"><img src="{{ im.url }}" style="width:65px;"
+                                                       class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+            </a>
+        {% endthumbnail %}
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+                class="fa fa-bars"></i></span>
+        <div class="w3-container">
+            <h1><b>Dashboard</b></h1>
+            <div class="w3-section w3-bottombar w3-padding-16">
+                <span class="w3-margin-right">Filter:</span>
+                <a href="{% url "information:profile_update" %}" class="w3-button w3-white">
+                    <i class="fas fa-id-card"></i>Update profile
+                </a>
+                <a href="{% url "account_reset_password" %}" class="w3-button w3-white w3-hide-small">
+                    <i class="fa fa-key"></i>Change password
+                </a>
+            </div>
+        </div>
+    </header>
+    <div class="w3-row">
+        <div class="w3-col l8 s12">
+            <div class="w3-card-4 w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>What's happening</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    {% for action in actions %}
+                        <li class="w3-padding-16">
+                            {% include "actions/detail.html" %}
+                        </li>
+                    {% empty %}
+                        <div class="w3-container w3-white">
+                            <p>There is nothing happened.</p>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div class="w3-col l4">
+            <!-- About Card -->
+            <div class="w3-card w3-margin w3-margin-top">
+                {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+                    <a href="{{ user.get_absolute_url }}">
+                        <img src="{{ im.url }}" style="width:100%">
+                    </a>
+                {% endthumbnail %}
+                <div class="w3-container w3-white">
+                    <h4><b>{{ user.username }}</b></h4>
+                    <p>{{ user.profile.description|markdown }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

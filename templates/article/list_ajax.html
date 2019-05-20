@@ -1,0 +1,30 @@
+{% load article_tags %}
+{% load thumbnail %}
+<div class="w3-row-padding">
+    {% for post in posts %}
+        <div class="w3-third w3-container w3-margin-bottom">
+            {% thumbnail post.avatar "300x300" crop="100%" as im %}
+                <a href="{{ post.get_absolute_url }}">
+                    <img src="{{ im.url }}" style="width:100%" class="w3-hover-opacity">
+                </a>
+            {% endthumbnail %}
+            <div class="w3-container w3-white">
+                <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block">
+                    <b>{{ post.title }}</b></p>
+                <p class="w3-opacity"
+                   style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block">{{ post.price }}¥</p>
+                <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block">
+                    {% for tag in post.tags.all %}
+                        <span class="w3-tag w3-light-grey w3-margin-bottom">
+                            {{ tag }}
+                        </span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="w3-container w3-white">
+            <p>There are no posts yet.</p>
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,8 @@
+<ul class="list-group m-4">
+    <li class="list-group-item">最新内容</li>
+    {% for post in latest_posts %}
+        <li class="list-group-item">
+            <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+        </li>
+    {% endfor %}
+</ul>
