@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from .models import Contact
 from actions.utils import create_action
-from actions.models import Action
+from actions.models import Action, Message
 
 
 # Create your views here.
@@ -25,21 +25,24 @@ def user_detail(request, username):
                   {'section': 'people',
                    'user': user})
 
+
 @login_required
 def dashboard(request):
     # Display all actions by default
     actions = Action.objects.all()
-    #actions = Action.objects.exclude(user=request.user)
+    # actions = Action.objects.exclude(user=request.user)
     '''following_ids = Contact.objects.filter(user_from=request.user).values_list('id', flat=True)
     if following_ids:
         # If user is following others, retrieve only their actions
-        actions = actions.filter(user_id__in=following_ids)''' #TODO
-    actions = actions.select_related('user', 'user__profile').prefetch_related('target')[:10]
+        actions = actions.filter(user_id__in=following_ids)'''  # TODO
+    actions = actions.select_related('user', 'user__profile').prefetch_related('target')[:100]
+    msgs = Message.objects.filter(user_to=request.user)[:100]
 
     return render(request,
                   'information/dashboard.html',
                   {'section': 'dashboard',
-                   'actions': actions})
+                   'actions': actions,
+                   'messages': msgs})
 
 
 @login_required

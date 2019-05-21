@@ -15,9 +15,10 @@
                    style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block">{{ post.price }}¥</p>
                 <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block">
                     {% for tag in post.tags.all %}
-                        <span class="w3-tag w3-light-grey w3-margin-bottom">
+                        <a class="w3-tag w3-light-grey w3-margin-bottom" style="text-decoration: none"
+                           href="{% url 'article:post_list' %}?tag={{ tag }}">
                             {{ tag }}
-                        </span>
+                        </a>
                     {% endfor %}
                 </div>
             </div>

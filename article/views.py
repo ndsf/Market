@@ -3,14 +3,13 @@ from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post
 from .forms import EmailPostForm, CommentForm, SearchForm, PostForm
-from taggit.models import Tag
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_POST
 from common.decorators import ajax_required
-from actions.utils import create_action
+from actions.utils import create_action, delete_action
 import redis
 from django.conf import settings
 from django.db.models import Q
@@ -23,16 +22,31 @@ r = redis.StrictRedis(host=settings.REDIS_HOST,
 
 # Create your views here.
 
-def post_list(request, tag_slug=None):
+def post_list(request):
     posts = Post.objects.all()
 
-    tag = None
-    if tag_slug:
-        tag = get_object_or_404(Tag, slug=tag_slug)
-        object_list = object_list.filter(tags__in=[tag])
+    tag = request.GET.get('tag')
+    if tag and tag != 'None':
+        posts = posts.filter(tags__name__in=[tag])
 
     paginator = Paginator(posts, 8)
     page = request.GET.get('page')
+
+    form = SearchForm()
+    query = None
+    if 'query' in request.GET:
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data['query']
+            results = Post.objects.filter(
+                Q(title__icontains=query)
+            )
+        return render(request,
+                      'article/search.html',
+                      {'form': form,
+                       'query': query,
+                       'results': results})
+
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
@@ -45,8 +59,8 @@ def post_list(request, tag_slug=None):
         # 如果页数超范围，显示最后一页
         posts = paginator.page(paginator.num_pages)
     if request.is_ajax():
-        return render(request, 'article/list_ajax.html', {'section': 'posts', 'posts': posts})
-    return render(request, 'article/list.html', {'section': 'posts', 'posts': posts})
+        return render(request, 'article/list_ajax.html', {'posts': posts, 'tag': tag, 'form': form})
+    return render(request, 'article/list.html', {'posts': posts, 'tag': tag, 'form': form})
 
 
 def post_detail(request, year, month, day, post):
@@ -166,6 +180,7 @@ def post_update(request, id):
 @login_required
 def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
+    delete_action(post)
     post.delete()
     return redirect('article:post_list')
 

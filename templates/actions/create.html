@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Send a message{% endblock %}
+{% block content %}
+    <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+        <h1>Send a message</h1>
+        <form action="" method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Send"
+                      class="w3-button w3-padding-large w3-white w3-border"></p>
+        </form>
+    </div>
+{% endblock %}

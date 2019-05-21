@@ -1,0 +1,12 @@
+{% load thumbnail %}
+
+{% thumbnail message.user_from.profile.avatar "80x80" crop="100%" as im %}
+    <a href="{{ message.user_from.get_absolute_url }}">
+        <img src="{{ im.url }}" alt="Image" class="w3-left w3-margin-right"
+             style="width:50px">
+    </a>
+{% endthumbnail %}
+<span class="w3-large">{{ message.user_from.username|truncatewords:5 }}</span>
+<span class="w3-large w3-opacity">, {{ message.created|timesince }} ago</span>
+<br>
+<span style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block">{{ message.body }}</span>

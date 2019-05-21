@@ -6,17 +6,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="shortcut icon"
-          href="https://nantepperdesign.com/wp-content/uploads/2018/10/regent-tours-inc-favicon-nan-tepper-design-2-18.png"/>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'w3.css' %}">
+    <link href="https://cdn.bootcss.com/font-awesome/5.8.2/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.proxy.ustclug.org/css?family=Raleway">
     <style>
         body, h1, h2, h3, h4, h5, h6 {
             font-family: "Raleway", sans-serif
         }
     </style>
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
 </head>
 <body class="w3-light-grey w3-content" style="max-width:1600px">
 {% include 'header.html' %}
@@ -24,9 +25,8 @@
     {% block content %}
     {% endblock %}
 </div>
-<!-- bootstrap.js 依赖 jquery.js 和popper.js，因此在这里引入 -->
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/js-cookie/latest/js.cookie.min.js"></script>
 <script>
     let csrftoken = Cookies.get('csrftoken');
 

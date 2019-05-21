@@ -22,6 +22,9 @@
                 <a href="{% url "account_reset_password" %}" class="w3-button w3-white w3-hide-small">
                     <i class="fa fa-key"></i>Change password
                 </a>
+                <a href="{% url "actions:message_create" %}" class="w3-button w3-white w3-hide-small">
+                    <i class="fa fa-envelope"></i>Send message
+                </a>
             </div>
         </div>
     </header>
@@ -56,6 +59,24 @@
                     <h4><b>{{ user.username }}</b></h4>
                     <p>{{ user.profile.description|markdown }}</p>
                 </div>
+            </div>
+            <hr>
+            <!-- Labels / tags -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>Messages</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    {% for message in messages %}
+                        <li class="w3-padding-16">
+                            {% include "actions/message.html" %}
+                        </li>
+                    {% empty %}
+                        <div class="w3-container w3-white">
+                            <p>There are no messages yet.</p>
+                        </div>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>

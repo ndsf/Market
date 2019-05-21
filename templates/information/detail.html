@@ -38,10 +38,10 @@
                         followers
                     </span></span>
                     </button>
-                    <button class="w3-button w3-light-gray">
+                    <a class="w3-button w3-light-gray" href="{% url 'actions:message_create' %}?id={{ user.id }}">
                         <i class="fas fa-envelope"></i>
                         Contact</span>
-                    </button>
+                    </a>
 
                     <a href="#" data-id="{{ user.id }}"
                        data-action="{% follow_action request.user user %}" class="follow button" id="follow-link" style="display: none">
