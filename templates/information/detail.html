@@ -13,11 +13,27 @@
                 <div class="w3-container w3-padding">
                     <h4>{% trans "Posts" %}</h4>
                 </div>
-                <ul class="w3-ul w3-hoverable w3-white">
+                <div class="w3-container w3-white w3-padding-16">
                     {% include "article/list_ajax.html" with posts=user.posts_created.all %}
-                </ul>
+                </div>
             </div>
             <hr>
+            <div class="w3-card-4 w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>{% trans "What's happening" %}</h4>
+                </div>
+                <ul class="w3-ul w3-hoverable w3-white">
+                    {% for action in actions %}
+                        <li class="w3-padding-16">
+                            {% include "actions/detail.html" %}
+                        </li>
+                    {% empty %}
+                        <div class="w3-container w3-white">
+                            <p>{% trans "There is nothing happened." %}</p>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
             <!-- END BIG CARDS -->
         </div>
 
@@ -32,18 +48,20 @@
                 {% endthumbnail %}
                 <div class="w3-container w3-white">
                     <h4><b>{{ user.username }}</b></h4>
-                    <button class="w3-button {% follow_color request.user user %}" id="follow-button">
-                        <i class="fas fa-heart"></i>
-                        <span class="count">
-                        <span class="total">{% followers_count user %}</span>
-                        {% trans "followers" %}
-                    </span>
-                    </button>
-                    <a class="w3-button w3-light-gray" href="{% url 'actions:message_create' %}?id={{ user.id }}">
-                        <i class="fas fa-envelope"></i>
-                        {% trans "Contact" %}
-                    </a>
+                    {% if user != request.user %}
+                        <button class="w3-button {% follow_color request.user user %}" id="follow-button">
+                            <i class="fas fa-heart"></i>
+                            <span class="count">
+                                <span class="total">{% followers_count user %}</span>
+                                {% trans "followers" %}
+                            </span>
+                        </button>
 
+                        <a class="w3-button w3-light-gray" href="{% url 'actions:conversation' user.id %}">
+                            <i class="fas fa-envelope"></i>
+                            {% trans "Contact" %}
+                        </a>
+                    {% endif %}
                     <a href="#" data-id="{{ user.id }}"
                        data-action="{% follow_action request.user user %}" class="follow button" id="follow-link"
                        style="display: none">
@@ -53,6 +71,20 @@
                 </div>
             </div>
             <hr>
+            <!-- Followers -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>{% trans "Followers" %}</h4>
+                </div>
+                {% include 'information/list_ul.html' with users=followers %}
+            </div>
+            <!-- Following -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>{% trans "Following" %}</h4>
+                </div>
+                {% include 'information/list_ul.html' with users=following %}
+            </div>
             <!-- END Introduction Menu -->
         </div>
     </div>

@@ -1,0 +1,20 @@
+{% load i18n %}
+{% load thumbnail %}
+<ul class="w3-ul w3-hoverable w3-white">
+    {% for user in users %}
+        <li class="w3-padding-16">
+            {% thumbnail user.profile.avatar "80x80" crop="100%" as im %}
+                <a href="{{ user.get_absolute_url }}">
+                    <img src="{{ im.url }}" alt="Image" class="w3-left w3-margin-right"
+                         style="width:50px">
+                </a>
+            {% endthumbnail %}
+            <span class="w3-large">{{ user.username }}</span><br>
+            <span>{{ user.profile.description|truncatewords_html:5 }}</span>
+        </li>
+    {% empty %}
+        <div class="w3-container w3-white">
+            <p>{% trans "No users yet." %}</p>
+        </div>
+    {% endfor %}
+</ul>

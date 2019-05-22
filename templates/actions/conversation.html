@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load thumbnail %}
 {% load article_tags %}
 {% block title %}Conversation with {% endblock %}
@@ -13,10 +14,10 @@
         <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
                 class="fa fa-bars"></i></span>
         <div class="w3-container">
-            <h1><b>Dashboard</b></h1>
+            <h1><b>{% trans "Conversation" %}</b></h1>
             <div class="w3-section w3-bottombar w3-padding-16">
-                <a href="{% url "actions:message_create" %}" class="w3-button w3-white w3-hide-small">
-                    <i class="fa fa-envelope"></i>Send message
+                <a href="{% url 'actions:message_create' %}?id={{ user.id }}" class="w3-button w3-white w3-hide-small">
+                    <i class="fa fa-envelope"></i>{% trans "Send message" %}
                 </a>
             </div>
         </div>
@@ -25,16 +26,16 @@
         <div class="w3-col l8 s12">
             <div class="w3-card-4 w3-margin">
                 <div class="w3-container w3-padding">
-                    <h4>Messages</h4>
+                    <h4>{% trans "Messages" %}</h4>
                 </div>
                 <ul class="w3-ul w3-hoverable w3-white">
                     {% for message in messages %}
                         <li class="w3-padding-16">
-                            {% include "actions/message.html" %}
+                            {% include "actions/message_full.html" %}
                         </li>
                     {% empty %}
                         <div class="w3-container w3-white">
-                            <p>There are no messages yet.</p>
+                            <p>{% trans "There are no messages yet." %}</p>
                         </div>
                     {% endfor %}
                 </ul>

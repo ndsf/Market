@@ -1,13 +1,36 @@
 {% extends 'base.html' %}
 {% load i18n %}
-{% block title %}Create a post{% endblock %}
+{% block title %}{% trans "Create a post" %}{% endblock %}
 {% block content %}
     <div class="w3-container w3-padding-large" style="margin-bottom:32px">
         <h1>{% trans "Create a post" %}</h1>
         <form action="." method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Create" class="w3-button w3-white">
+            <ul class="errorlist">
+                <li>{% trans "This field is required." %}</li>
+            </ul>
+            <p><label for="id_title">{% trans "Title:" %}</label> <input type="text" name="title"
+                                                                         class="w3-input w3-border"
+                                                                         maxlength="200" required id="id_title"></p>
+            <p><label for="id_avatar">{% trans "Avatar:" %}</label> <input type="file" name="avatar" accept="image/*"
+                                                                           id="id_avatar">
+            </p>
+            <ul class="errorlist">
+                <li>{% trans "This field is required." %}</li>
+            </ul>
+            <p><label for="id_price">{% trans "Price:" %}</label> <input type="text" name="price"
+                                                                         class="w3-input w3-border" required
+                                                                         id="id_price"></p>
+            <p><label for="id_body">{% trans "Body:" %}</label> <textarea name="body" cols="40" rows="10"
+                                                                          class="w3-input w3-border"
+                                                                          id="id_body">
+</textarea></p>
+            <p><label for="id_tags">{% trans "Tags:" %}</label> <input type="text" name="tags"
+                                                                       class="w3-input w3-border"
+                                                                       id="id_tags"> <span
+                    class="helptext">{% trans "A comma-separated list of tags." %}</span>
+            </p>
+            <input type="submit" value="{% trans 'Create' %}" class="w3-button w3-white">
         </form>
     </div>
 {% endblock %}

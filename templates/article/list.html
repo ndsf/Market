@@ -1,6 +1,8 @@
 {% extends "base.html" %}
-{% load article_tags %}{% load thumbnail %}
-{% block title %}Market{% endblock %}
+{% load article_tags %}
+{% load thumbnail %}
+{% load i18n %}
+{% block title %}{% trans "Market" %}{% endblock %}
 
 {% block content %}
     <header>
@@ -12,11 +14,23 @@
         <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
                 class="fa fa-bars"></i></span>
         <div class="w3-container">
-            <h1><b>Market</b></h1>
+            <h1><b>
+                {% if tag %}
+                    {{ tag }}
+                {% else %}
+                    {% trans "Market" %}
+                {% endif %}
+            </b></h1>
             <div class="w3-section w3-bottombar w3-padding-16">
-                <a class="w3-button w3-white" href="{% url 'article:post_list' %}">ALL</a>
-                <a class="w3-button w3-white" href="{% url 'article:post_list' %}?tag=Needs">Needs</a>
-                <a class="w3-button w3-white" href="{% url 'article:post_list' %}?tag=Goods">Goods</a>
+                <a class="w3-button w3-white" href="{% url 'article:post_list' %}">{% trans "ALL" %}</a>
+                <a class="w3-button w3-white" href="{% url 'article:post_list' %}?tag=需求">{% trans "Needs" %}</a>
+                <a class="w3-button w3-white" href="{% url 'article:post_list' %}?tag=商品">{% trans "Goods" %}</a>
+                <a class="w3-button w3-white" href="{% url 'article:post_list' %}?tag=数码">{% trans "Digital" %}</a>
+                <a class="w3-button w3-white" href="{% url 'article:post_list' %}?tag=图书">{% trans "Books" %}</a>
+                <a class="w3-button w3-white" href="{% url 'article:post_list' %}?tag=电器">{% trans "Appliances" %}</a>
+                <a class="w3-button w3-white" href="{% url 'article:post_list' %}?tag=服饰">{% trans "Clothes" %}</a>
+                <a class="w3-button w3-white" href="{% url 'article:post_list' %}?tag=美妆">{% trans "Makeups" %}</a>
+
                 <form action="" method="get" style="display:inline">
                     <input type="text" name="query" required id="id_query" class="w3-input w3-border"
                            style="width: 30%; display:inline">

@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
-{% block title %}Send a message{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Send a message" %}{% endblock %}
 {% block content %}
     <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-        <h1>Send a message</h1>
+        <h1>{% trans "Send a message" %}</h1>
         <form action="" method="post">
             {{ form.as_p }}
             {% csrf_token %}

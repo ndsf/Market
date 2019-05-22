@@ -14,34 +14,54 @@ from actions.models import Action, Message
 # Create your views here.
 def user_list(request):
     users = User.objects.all()
+    tag = request.GET.get('tag')
+    if tag and tag != 'None':
+        followers = Contact.objects.filter(user_to=request.user).values_list('user_from', flat=True)[:10]
+        followers = User.objects.filter(id__in=followers)
+        following = Contact.objects.filter(user_from=request.user).values_list('user_to', flat=True)[:10]
+        following = User.objects.filter(id__in=following)
+
+        def intersection(lst1, lst2):
+            lst3 = [value for value in lst1 if value in lst2]
+            return lst3
+
+        if tag == 'Followers':
+            users = followers
+        elif tag == 'Following':
+            users = following
+        elif tag == 'Friends':
+            users = intersection(followers, following)
     return render(request, 'information/list.html', {'users': users})
 
 
 @login_required
 def user_detail(request, username):
     user = get_object_or_404(User, username=username)
+    followers = Contact.objects.filter(user_to=user).values_list('user_from', flat=True)[:10]
+    followers = User.objects.filter(id__in=followers)
+    following = Contact.objects.filter(user_from=user).values_list('user_to', flat=True)[:10]
+    following = User.objects.filter(id__in=following)
+    actions = Action.objects.filter(user=user)[:100]
     return render(request,
                   'information/detail.html',
-                  {'section': 'people',
-                   'user': user})
+                  {'user': user,
+                   'followers': followers,
+                   'following': following,
+                   'actions': actions})
 
 
 @login_required
 def dashboard(request):
-    # Display all actions by default
-    actions = Action.objects.all()
-    # actions = Action.objects.exclude(user=request.user)
-    '''following_ids = Contact.objects.filter(user_from=request.user).values_list('id', flat=True)
-    if following_ids:
-        # If user is following others, retrieve only their actions
-        actions = actions.filter(user_id__in=following_ids)'''  # TODO
-    actions = actions.select_related('user', 'user__profile').prefetch_related('target')[:100]
+    following = Contact.objects.filter(user_from=request.user).values_list('user_to', flat=True)[:10]
+    following = User.objects.filter(id__in=following)
+    actions = Action.objects.select_related('user', 'user__profile').prefetch_related('target').filter(
+        user__in=following)[
+              :100]
     msgs = Message.objects.filter(user_to=request.user)[:100]
 
     return render(request,
                   'information/dashboard.html',
-                  {'section': 'dashboard',
-                   'actions': actions,
+                  {'actions': actions,
                    'messages': msgs})
 
 

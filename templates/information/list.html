@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load thumbnail %}
 {% load i18n %}
-{% block title %}People{% endblock %}
+{% block title %}{% trans "People" %}{% endblock %}
 {% block content %}
     <header>
         {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
@@ -12,25 +12,25 @@
         <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
                 class="fa fa-bars"></i></span>
         <div class="w3-container">
-            <h1><b>{% trans "Users" %}</b></h1>
+            <h1><b>
+                {% if tag %}
+                    {{ tag }}
+                {% else %}
+                    {% trans "Users" %}
+                {% endif %}
+            </b></h1>
             <div class="w3-section w3-bottombar w3-padding-16">
+                <a class="w3-button w3-white" href="{% url 'information:user_list' %}">{% trans "ALL" %}</a>
+                <a class="w3-button w3-white" href="{% url 'information:user_list' %}?tag=Followers">{% trans "Followers" %}</a>
+                <a class="w3-button w3-white" href="{% url 'information:user_list' %}?tag=Following">{% trans "Following" %}</a>
+                <a class="w3-button w3-white" href="{% url 'information:user_list' %}?tag=Friends">{% trans "Friends" %}</a>
+                <form action="" method="get" style="display:inline">
+                    <input type="text" name="query" required id="id_query" class="w3-input w3-border"
+                           style="width: 30%; display:inline">
+                    <input type="submit" value="Search" class="w3-button w3-white">
+                </form>
             </div>
         </div>
     </header>
-    <div class="w3-row-padding">
-        {% for user in users %}
-            <div class="w3-col l3 m6 w3-margin-bottom">
-                <div class="w3-display-container">
-                    <div class="w3-display-topleft w3-black w3-padding">
-                        {{ user.username }}
-                    </div>
-                    {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
-                        <a href="{{ user.get_absolute_url }}">
-                            <img src="{{ im.url }}" style="width:100%">
-                        </a>
-                    {% endthumbnail %}
-                </div>
-            </div>
-        {% endfor %}
-    </div>
+    {% include "information/list_ajax.html" %}
 {% endblock %}

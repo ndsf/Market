@@ -1,5 +1,5 @@
 {% load thumbnail %}
-
+{% load i18n %}
 {% with user=action.user profile=action.user.profile %}
     {% if action.target %}
         {% with target=action.target %}
@@ -22,12 +22,12 @@
     {% endif %}
     <span class="w3-large">
         <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
-        {{ action.verb }}
+        {% trans action.verb %}
         {% if action.target %}
             {% with target=action.target %}
                 <a href="{{ target.get_absolute_url }}">{{ target }}</a>
             {% endwith %}
         {% endif %}
     </span><br>
-    <span>{{ action.created|timesince }} ago</span>
+    <span>{{ action.created|timesince }} {% trans "ago" %}</span>
 {% endwith %}

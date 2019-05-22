@@ -27,7 +27,12 @@ def post_list(request):
 
     tag = request.GET.get('tag')
     if tag and tag != 'None':
-        posts = posts.filter(tags__name__in=[tag])
+        if tag == 'Favourite':
+            posts = request.user.posts_liked.all()
+        else:
+            posts = posts.filter(tags__name__in=[tag])
+
+
 
     paginator = Paginator(posts, 8)
     page = request.GET.get('page')
@@ -164,6 +169,8 @@ def post_create(request):
 @login_required
 def post_update(request, id):
     post = get_object_or_404(Post, id=id)
+    if request.user != post.author:
+        return redirect(post.get_absolute_url())
     if request.method == 'POST':
         form = PostForm(instance=post, data=request.POST, files=request.FILES)
         if form.is_valid():
@@ -180,6 +187,8 @@ def post_update(request, id):
 @login_required
 def post_delete(request, id):
     post = get_object_or_404(Post, id=id)
+    if request.user != post.author:
+        return redirect(post.get_absolute_url())
     delete_action(post)
     post.delete()
     return redirect('article:post_list')
@@ -215,5 +224,4 @@ def post_ranking(request):
     most_viewed.sort(key=lambda x: post_ranking_ids.index(x.id))
     return render(request,
                   'article/ranking.html',
-                  {'section': 'posts',
-                   'most_viewed': most_viewed})
+                  {'most_viewed': most_viewed})

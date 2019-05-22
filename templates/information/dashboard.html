@@ -28,6 +28,9 @@
                 <a href="{% url "article:post_feed" %}" class="w3-button w3-white w3-hide-small">
                     <i class="fa fa-rss"></i>{% trans "RSS feed" %}
                 </a>
+                <a href="{% url 'article:post_list' %}?tag=Favourite" class="w3-button w3-white w3-hide-small">
+                    <i class="fa fa-star"></i>{% trans "Favourites" %}
+                </a>
             </div>
         </div>
     </header>
@@ -64,7 +67,7 @@
                 </div>
             </div>
             <hr>
-            <!-- Labels / tags -->
+            <!-- Messages -->
             <div class="w3-card w3-margin">
                 <div class="w3-container w3-padding">
                     <h4>{% trans "Messages" %}</h4>

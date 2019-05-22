@@ -21,10 +21,11 @@ from article.views import post_list
 from django.conf import settings
 from django.conf.urls.static import static
 from information.views import dashboard
+from django.conf.urls.i18n import i18n_patterns
 
 sitemaps = {'posts': PostSitemap, }
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path('', post_list),
     path('admin/', admin.site.urls),
     path('article/', include('article.urls', namespace='article')),
@@ -34,7 +35,8 @@ urlpatterns = [
     path('accounts/profile/', dashboard),
     path('accounts/', include('allauth.urls')),
     path('rosetta/', include('rosetta.urls')),
-]
+    path('martor/', include('martor.urls')),
+)
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

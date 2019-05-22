@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'sorl.thumbnail',
     'rosetta',
-    'autotranslate',
 ]
 
 MIDDLEWARE = [

@@ -17,7 +17,7 @@ def message_create(request):
             new_item.user_from = request.user
             new_item.save()
             messages.success(request, 'Message sent successfully')
-            return redirect('article:post_list')
+            return redirect('actions:conversation', id=new_item.user_to.id)
     else:
         id = request.GET.get('id')
         user = None
@@ -28,6 +28,18 @@ def message_create(request):
         else:
             form = MessageForm()
         return render(request, 'actions/create.html', {'form': form})
+
+
+@login_required
+def message_delete(request, id):
+    message = get_object_or_404(Message, id=id)
+    if request.user not in [message.user_from, message.user_to]:
+        return redirect('information:dashboard')
+    message.delete()
+    if request.user == message.user_from:
+        return redirect('actions:conversation', id=message.user_to.id)
+    else:
+        return redirect('actions:conversation', id=message.user_from.id)
 
 
 @login_required

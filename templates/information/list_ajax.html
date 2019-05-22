@@ -1,0 +1,18 @@
+{% load thumbnail %}
+{% load i18n %}
+<div class="w3-row-padding">
+    {% for user in users %}
+        <div class="w3-col l3 m6 w3-margin-bottom">
+            <div class="w3-display-container">
+                <div class="w3-display-topleft w3-black w3-padding">
+                    {{ user.username }}
+                </div>
+                {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+                    <a href="{{ user.get_absolute_url }}">
+                        <img src="{{ im.url }}" style="width:100%">
+                    </a>
+                {% endthumbnail %}
+            </div>
+        </div>
+    {% endfor %}
+</div>

@@ -41,10 +41,12 @@
 
                 <a href="{% url "article:post_share" post.id %}" class="w3-button w3-white w3-hide-small"><i
                         class="fas fa-share"></i>{% trans "Share" %}</a>
-                <a href="{% url "article:post_update" post.id %}" class="w3-button w3-white w3-hide-small"><i
-                        class="fas fa-edit"></i>{% trans "Update" %}</a>
-                <a href="{% url "article:post_delete" post.id %}" class="w3-button w3-white w3-hide-small"><i
-                        class="fas fa-trash"></i>{% trans "Delete" %}</a>
+                {% if request.user == post.author %}
+                    <a href="{% url "article:post_update" post.id %}" class="w3-button w3-white w3-hide-small"><i
+                            class="fas fa-edit"></i>{% trans "Update" %}</a>
+                    <a href="{% url "article:post_delete" post.id %}" class="w3-button w3-white w3-hide-small"><i
+                            class="fas fa-trash"></i>{% trans "Delete" %}</a>
+                {% endif %}
 
                 <!-- Like button DON'T TRANSLATE-->
                 <a href="#" data-id="{{ post.id }}"
@@ -68,7 +70,7 @@
                 <img src="{{ post.avatar.url }}" style="width:100%">
                 <div class="w3-container">
                     <h3><b>{{ post.title }}</b></h3>
-                    <h5>Post by <a href="#">{{ post.author }}</a>, <span class="w3-opacity">{{ post.created }}</span>
+                    <h5><a href="#">{{ post.author }}</a>, <span class="w3-opacity">{{ post.created }}</span>
                     </h5>
                 </div>
 
@@ -99,9 +101,14 @@
                 </div>
                 <div class="w3-container w3-white">
                     <form action="" method="post">
-                        {{ comment_form.as_p }}
                         {% csrf_token %}
-                        <p><input type="submit" value="Add comment"
+                        <p>
+                            <textarea name="body" cols="40" rows="10"
+                                      class="w3-input w3-border" required
+                                      id="id_body">
+                            </textarea>
+                        </p>
+                        <p><input type="submit" value="{% trans 'Add comment' %}"
                                   class="w3-button w3-padding-large w3-white w3-border"></p>
                     </form>
                 </div>
@@ -160,24 +167,7 @@
                 <div class="w3-container w3-padding">
                     <h4>{% trans "Liked by" %}</h4>
                 </div>
-                <ul class="w3-ul w3-hoverable w3-white">
-                    {% for user in post.users_like.all %}
-                        <li class="w3-padding-16">
-                            {% thumbnail user.profile.avatar "80x80" crop="100%" as im %}
-                                <a href="{{ user.get_absolute_url }}">
-                                    <img src="{{ im.url }}" alt="Image" class="w3-left w3-margin-right"
-                                         style="width:50px">
-                                </a>
-                            {% endthumbnail %}
-                            <span class="w3-large">{{ user.username }}</span><br>
-                            <span>{{ user.profile.description|truncatewords_html:5 }}</span>
-                        </li>
-                    {% empty %}
-                        <div class="w3-container w3-white">
-                            <p>{% trans "Nobody likes this post yet." %}</p>
-                        </div>
-                    {% endfor %}
-                </ul>
+                {% include 'information/list_ul.html' with users=post.users_like.all %}
             </div>
             <hr>
 
