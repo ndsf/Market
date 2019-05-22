@@ -20,6 +20,7 @@ from article.sitemaps import PostSitemap
 from article.views import post_list
 from django.conf import settings
 from django.conf.urls.static import static
+from information.views import dashboard
 
 sitemaps = {'posts': PostSitemap, }
 
@@ -30,7 +31,9 @@ urlpatterns = [
     path('information/', include('information.urls', namespace='information')),
     path('actions/', include('actions.urls', namespace='actions')),
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('accounts/profile/', dashboard),
     path('accounts/', include('allauth.urls')),
+    path('rosetta/', include('rosetta.urls')),
 ]
 
 if settings.DEBUG:
