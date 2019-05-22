@@ -1,15 +1,15 @@
 {% extends "article/../base.html" %}
-
-{% block title %}Share a post{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Share a post" %}{% endblock %}
 
 {% block content %}
     {% if sent %}
-        <h1>E-mail successfully sent</h1>
+        <h1>{% trans "E-mail successfully sent" %}</h1>
         <p>
-            "{{ post.title }}" was successfully sent to {{ form.cleaned_data.to }}.
+            "{{ post.title }}" {% trans "was successfully sent to" %} {{ form.cleaned_data.to }}.
         </p>
     {% else %}
-        <h1>Share "{{ post.title }}" by e-mail</h1>
+        <h1>{% trans "Share" %} "{{ post.title }}"</h1>
         <form action="" method="post">
             {{ form.as_p }}
             {% csrf_token %}

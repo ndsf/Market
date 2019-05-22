@@ -1,5 +1,6 @@
 {% load article_tags %}
 {% load thumbnail %}
+{% load i18n %}
 <div class="w3-row-padding">
     {% for post in posts %}
         <div class="w3-third w3-container w3-margin-bottom">
@@ -25,7 +26,7 @@
         </div>
     {% empty %}
         <div class="w3-container w3-white">
-            <p>There are no posts yet.</p>
+            <p>{% trans "There are no posts yet." %}</p>
         </div>
     {% endfor %}
 </div>

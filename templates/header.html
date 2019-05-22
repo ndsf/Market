@@ -1,12 +1,12 @@
 <!-- 定义导航栏 -->
 <!-- Sidebar/menu -->
+{% load i18n %}
 <nav class="w3-sidebar w3-collapse w3-white" style="z-index:3;width:300px;" id="mySidebar"><br>
     <div class="w3-container">
         <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
            title="close menu">
             <i class="fa fa-remove"></i>
         </a>
-        <!--<img src="https://www.w3schools.com/w3images/avatar_g2.jpg" style="width:45%;" class="w3-round"><br><br>-->
         {% load thumbnail %}
         {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
             <a href="{{ user.get_absolute_url }}">
@@ -20,25 +20,22 @@
     <div class="w3-bar-block">
         <a href="{% url 'article:post_list' %}" onclick="w3_close()"
            class="w3-bar-item w3-button w3-padding w3-text-teal"><i
-                class="fas fa-th-large fa-fw w3-margin-right"></i>POSTS</a>
+                class="fas fa-th-large fa-fw w3-margin-right"></i>{% trans "POSTS" %}</a>
         <a href="{% url 'information:user_list' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
-                class="fas fa-user fa-fw w3-margin-right"></i>USERS</a>
+                class="fas fa-user fa-fw w3-margin-right"></i>{% trans "USERS" %}</a>
         <a href="{% url 'article:post_create' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
-                class="fas fa-plus-square fa-fw w3-margin-right"></i>CREATE</a>
+                class="fas fa-plus-square fa-fw w3-margin-right"></i>{% trans "CREATE" %}</a>
 
         {% if user.is_authenticated %}
             <!-- 如果用户已经登录，则显示用户名下拉框 -->
             <a href="{% url 'information:dashboard' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
-                    class="fas fa-tachometer-alt fa-fw w3-margin-right"></i>DASHBOARD</a>
-            <a href="{% url 'information:profile_update' %}" onclick="w3_close()"
-               class="w3-bar-item w3-button w3-padding"><i
-                    class="fas fa-id-card fa-fw w3-margin-right"></i>UPDATE PROFILE</a>
+                    class="fas fa-tachometer-alt fa-fw w3-margin-right"></i>{% trans "DASHBOARD" %}</a>
             <a href="{% url 'account_logout' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
-                    class="fas fa-sign-out-alt fa-fw w3-margin-right"></i>LOGOUT</a>
+                    class="fas fa-sign-out-alt fa-fw w3-margin-right"></i>{% trans "LOGOUT" %}</a>
             <!-- 如果用户未登录，则显示 “登录” -->
         {% else %}
             <a href="{% url 'account_login' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
-                    class="fa fa-envelope fa-fw w3-margin-right"></i>LOGIN</a>
+                    class="fa fa-envelope fa-fw w3-margin-right"></i>{% trans "LOGIN" %}</a>
             <!-- if 语句在这里结束 -->
         {% endif %}
     </div>

@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import MessageForm
+from .models import Message
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.db.models import Q
 
 
 # Create your views here.
@@ -26,3 +28,10 @@ def message_create(request):
         else:
             form = MessageForm()
         return render(request, 'actions/create.html', {'form': form})
+
+
+@login_required
+def conversation(request, id):
+    user = get_object_or_404(User, id=id)
+    msgs = Message.objects.filter(Q(user_from=request.user, user_to=user) | Q(user_from=user, user_to=request.user))
+    return render(request, 'actions/conversation.html', {'user': user, 'messages': msgs})

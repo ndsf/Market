@@ -1,8 +1,7 @@
 {% extends "base.html" %}
-{% load i18n %}
 {% load thumbnail %}
 {% load article_tags %}
-{% block title %}{% trans "Dashboard" %}{% endblock %}
+{% block title %}Conversation with {% endblock %}
 
 {% block content %}
     <header>
@@ -14,19 +13,10 @@
         <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
                 class="fa fa-bars"></i></span>
         <div class="w3-container">
-            <h1><b>{% trans "DASHBOARD" %}</b></h1>
+            <h1><b>Dashboard</b></h1>
             <div class="w3-section w3-bottombar w3-padding-16">
-                <a href="{% url "information:profile_update" %}" class="w3-button w3-white">
-                    <i class="fas fa-id-card"></i>{% trans "Update profile" %}
-                </a>
-                <a href="{% url "account_reset_password" %}" class="w3-button w3-white w3-hide-small">
-                    <i class="fa fa-key"></i>{% trans "Change password" %}
-                </a>
                 <a href="{% url "actions:message_create" %}" class="w3-button w3-white w3-hide-small">
-                    <i class="fa fa-envelope"></i>{% trans "Send message" %}
-                </a>
-                <a href="{% url "article:post_feed" %}" class="w3-button w3-white w3-hide-small">
-                    <i class="fa fa-rss"></i>{% trans "RSS feed" %}
+                    <i class="fa fa-envelope"></i>Send message
                 </a>
             </div>
         </div>
@@ -35,21 +25,22 @@
         <div class="w3-col l8 s12">
             <div class="w3-card-4 w3-margin">
                 <div class="w3-container w3-padding">
-                    <h4>{% trans "What's happening" %}</h4>
+                    <h4>Messages</h4>
                 </div>
                 <ul class="w3-ul w3-hoverable w3-white">
-                    {% for action in actions %}
+                    {% for message in messages %}
                         <li class="w3-padding-16">
-                            {% include "actions/detail.html" %}
+                            {% include "actions/message.html" %}
                         </li>
                     {% empty %}
                         <div class="w3-container w3-white">
-                            <p>{% trans "There is nothing happened." %}</p>
+                            <p>There are no messages yet.</p>
                         </div>
                     {% endfor %}
                 </ul>
             </div>
         </div>
+        <hr>
         <div class="w3-col l4">
             <!-- About Card -->
             <div class="w3-card w3-margin w3-margin-top">
@@ -62,24 +53,6 @@
                     <h4><b>{{ user.username }}</b></h4>
                     <p>{{ user.profile.description|markdown }}</p>
                 </div>
-            </div>
-            <hr>
-            <!-- Labels / tags -->
-            <div class="w3-card w3-margin">
-                <div class="w3-container w3-padding">
-                    <h4>{% trans "Messages" %}</h4>
-                </div>
-                <ul class="w3-ul w3-hoverable w3-white">
-                    {% for message in messages %}
-                        <li class="w3-padding-16">
-                            {% include "actions/message.html" %}
-                        </li>
-                    {% empty %}
-                        <div class="w3-container w3-white">
-                            <p>{% trans "There are no messages yet." %}</p>
-                        </div>
-                    {% endfor %}
-                </ul>
             </div>
         </div>
     </div>

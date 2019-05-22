@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
+{% load i18n %}
 {% block title %}Create a post{% endblock %}
 {% block content %}
     <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-        <h1>Create a post</h1>
+        <h1>{% trans "Create a post" %}</h1>
         <form action="." method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             {{ form.as_p }}

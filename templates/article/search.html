@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block title %}
-    Search
+    {% trans "Search" %}
 {% endblock %}
 
 {% block content %}
     {% if query %}
         <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-            <h1>Post containing {{ query }}</h1>
+            <h1>{% trans "Post containing" %} {{ query }}</h1>
             <h3>
                 {% with results.count as total_results %}
-                    Found {{ total_results }} result{{ total_results|pluralize }}
+                    {% trans "Found" %} {{ total_results }} {% trans "results" %}
                 {% endwith %}
             </h3>
             {% include "article/list_ajax.html" with posts=results %}
         </div>
     {% else %}
         <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-            <h1>Search for posts</h1>
+            <h1>{% trans "Search for posts" %}</h1>
             <form action="" method="get">
                 {{ form.as_p }}
                 <input type="submit" value="Search" class="w3-button w3-white">

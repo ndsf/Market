@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load article_tags %}
+{% load i18n %}
 {% load information_tags %}
 {% load thumbnail %}
 {% block title %}{{ user.username }}{% endblock %}
@@ -10,7 +11,7 @@
             <!-- Detail card -->
             <div class="w3-card-4 w3-margin">
                 <div class="w3-container w3-padding">
-                    <h4>Posts</h4>
+                    <h4>{% trans "Posts" %}</h4>
                 </div>
                 <ul class="w3-ul w3-hoverable w3-white">
                     {% include "article/list_ajax.html" with posts=user.posts_created.all %}
@@ -35,16 +36,17 @@
                         <i class="fas fa-heart"></i>
                         <span class="count">
                         <span class="total">{% followers_count user %}</span>
-                        followers
-                    </span></span>
+                        {% trans "followers" %}
+                    </span>
                     </button>
                     <a class="w3-button w3-light-gray" href="{% url 'actions:message_create' %}?id={{ user.id }}">
                         <i class="fas fa-envelope"></i>
-                        Contact</span>
+                        {% trans "Contact" %}
                     </a>
 
                     <a href="#" data-id="{{ user.id }}"
-                       data-action="{% follow_action request.user user %}" class="follow button" id="follow-link" style="display: none">
+                       data-action="{% follow_action request.user user %}" class="follow button" id="follow-link"
+                       style="display: none">
                         {% show_follow request.user user %}
                     </a>
                     <p>{{ user.profile.description|markdown }}</p>
