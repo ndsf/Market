@@ -1,14 +1,32 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load i18n %}
 {% block title %}{% trans "Send a message" %}{% endblock %}
 {% block content %}
     <div class="w3-container w3-padding-large" style="margin-bottom:32px">
         <h1>{% trans "Send a message" %}</h1>
         <form action="" method="post">
-            {{ form.as_p }}
             {% csrf_token %}
-            <p><input type="submit" value="Send"
+            <p>
+                <label for="id_user_to">{% trans "User to:" %}</label>
+                {{ form.user_to }}
+            </p>
+            <div id="editormd">
+                <textarea name="body" id="id_body" style="display:none"></textarea>
+            </div>
+            <p><input type="submit" value="{% trans 'Send' %}"
                       class="w3-button w3-padding-large w3-white w3-border"></p>
         </form>
     </div>
+{% endblock %}
+{% block domready %}
+    <script>
+        $(function () {
+            var editor = editormd("editormd", {
+                height: 500,
+                syncScrolling: "single",
+                path: "{% static 'editormd/lib/' %}" // Autoload modules mode, codemirror, marked... dependents libs path
+            });
+        });
+    </script>
 {% endblock %}

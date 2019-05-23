@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% load static %}
 {% block title %}
     {% trans "Edit your account" %}
 {% endblock %}
@@ -9,8 +10,22 @@
         <h1>{% trans "Edit your account" %}</h1>
         <form action="." method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
-            {{ form.as_p }}
-            <p><input type="submit" value="Save changes" class="w3-button w3-white"></p>
+            <p><label for="id_avatar">{% trans "Avatar:" %}</label> {{ form.avatar }}</p>
+            <div id="editormd">
+                <textarea name="description" id="id_description" style="display:none">{{ form.description.value }}</textarea>
+            </div>
+            <p><input type="submit" value="{% trans 'Save changes' %}" class="w3-button w3-white"></p>
         </form>
     </div>
+{% endblock %}
+{% block domready %}
+    <script>
+        $(function () {
+            var editor = editormd("editormd", {
+                height: 500,
+                syncScrolling: "single",
+                path: "{% static 'editormd/lib/' %}" // Autoload modules mode, codemirror, marked... dependents libs path
+            });
+        });
+    </script>
 {% endblock %}

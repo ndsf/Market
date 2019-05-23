@@ -20,6 +20,11 @@
                            href="{% url 'article:post_list' %}?tag={{ tag }}">
                             {{ tag }}
                         </a>
+                    {% empty %}
+                        <a class="w3-tag w3-light-grey w3-margin-bottom" style="text-decoration: none"
+                           href="{% url 'article:post_list' %}?tag=需求">
+                            {% trans "Needs" %}
+                        </a>
                     {% endfor %}
                 </div>
             </div>

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-22 23:49+0800\n"
-"PO-Revision-Date: 2019-05-22 23:52+0806\n"
+"POT-Creation-Date: 2019-05-23 11:00+0800\n"
+"PO-Revision-Date: 2019-05-23 11:05+0806\n"
 "Last-Translator: b'  <ndsf@qq.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -32,17 +32,16 @@ msgid "Name"
 msgstr "姓名"
 
 #: article/forms.py:8
-#, fuzzy
 #| msgid "Add E-mail"
 msgid "Email"
-msgstr "添加​​电子邮件"
+msgstr "​​电子邮件"
 
 #: article/forms.py:9
 msgid "To"
 msgstr "至"
 
-#: article/forms.py:10 templates/article/detail.html:89
-#: templates/article/detail.html:120
+#: article/forms.py:10 templates/article/detail.html:90
+#: templates/article/detail.html:118
 msgid "Comments"
 msgstr "评论"
 
@@ -342,104 +341,98 @@ msgstr "信息"
 msgid "There are no messages yet."
 msgstr "没有信息。"
 
-#: templates/actions/create.html:3 templates/actions/create.html:6
-#, fuzzy
+#: templates/actions/create.html:4 templates/actions/create.html:7
 #| msgid "Send message"
 msgid "Send a message"
 msgstr "发送信息"
+
+#: templates/actions/create.html:11
+#| msgid "Users"
+msgid "User to:"
+msgstr "用户"
+
+#: templates/actions/create.html:17
+msgid "Send"
+msgstr "发送"
 
 #: templates/actions/detail.html:32 templates/actions/message.html:10
 #: templates/actions/message_full.html:11
 msgid "ago"
 msgstr "之前"
 
-#: templates/actions/message_full.html:12 templates/article/detail.html:48
+#: templates/actions/message_full.html:12 templates/article/detail.html:49
 msgid "Delete"
 msgstr "删除"
 
-#: templates/article/create.html:3 templates/article/create.html:6
+#: templates/article/create.html:4 templates/article/create.html:7
 msgid "Create a post"
 msgstr "创建帖子"
 
-#: templates/article/create.html:10 templates/article/create.html:19
-msgid "This field is required."
-msgstr "这个字段是必填项。"
-
-#: templates/article/create.html:12
+#: templates/article/create.html:10 templates/article/update.html:12
 msgid "Title:"
 msgstr "标题"
 
-#: templates/article/create.html:15
+#: templates/article/create.html:11 templates/article/update.html:13
+#: templates/information/update.html:13
 msgid "Avatar:"
 msgstr "图片"
 
-#: templates/article/create.html:21
+#: templates/article/create.html:12 templates/article/update.html:14
 msgid "Price:"
 msgstr "价格"
 
-#: templates/article/create.html:24
-msgid "Body:"
-msgstr "描述"
-
-#: templates/article/create.html:28
-#, fuzzy
+#: templates/article/create.html:13
 #| msgid "Tags"
 msgid "Tags:"
 msgstr "标签"
 
-#: templates/article/create.html:31
-msgid "A comma-separated list of tags."
-msgstr "半角逗号\",\"分隔的标签列表。"
-
-#: templates/article/create.html:33
-#, fuzzy
+#: templates/article/create.html:17 templates/article/update.html:18
 #| msgid "Create a post"
 msgid "Create"
 msgstr "创建帖子"
 
-#: templates/article/detail.html:43 templates/article/share.html:12
+#: templates/article/detail.html:44 templates/article/share.html:12
 msgid "Share"
 msgstr "分享"
 
-#: templates/article/detail.html:46
+#: templates/article/detail.html:47
 msgid "Update"
 msgstr "更新"
 
-#: templates/article/detail.html:83
+#: templates/article/detail.html:84
 msgid "CONTACT"
 msgstr "联系"
 
-#: templates/article/detail.html:100
+#: templates/article/detail.html:101
 msgid "Add a new comment"
 msgstr "添加​​新评论"
 
-#: templates/article/detail.html:111
-#, fuzzy
+#: templates/article/detail.html:109
 #| msgid "Add a new comment"
 msgid "Add comment"
 msgstr "添加​​新评论"
 
-#: templates/article/detail.html:142
+#: templates/article/detail.html:140
 msgid "There are no comments yet."
 msgstr "还没有评论。"
 
-#: templates/article/detail.html:168
+#: templates/article/detail.html:166
 msgid "Liked by"
 msgstr "喜欢的人"
 
-#: templates/article/detail.html:177
+#: templates/article/detail.html:175
 msgid "Tags"
 msgstr "标签"
 
-#: templates/article/detail.html:187
+#: templates/article/detail.html:185
 msgid "There are no tags yet."
 msgstr "还没有标签。"
 
-#: templates/article/detail.html:197
+#: templates/article/detail.html:195
 msgid "Similar posts"
 msgstr "相似的帖子"
 
-#: templates/article/detail.html:213
+#: templates/article/detail.html:211
 msgid "There are no similar posts yet."
 msgstr "目前还没有相似的帖子。"
 
@@ -479,13 +472,14 @@ msgstr "服饰"
 msgid "Makeups"
 msgstr "化妆"
 
+#: templates/article/list.html:37 templates/article/search.html:4
+#: templates/article/search.html:23 templates/information/list.html:30
+msgid "Search"
+msgstr "搜索"
+
 #: templates/article/list_ajax.html:29
 msgid "There are no posts yet."
 msgstr "还没有帖子。"
-
-#: templates/article/search.html:4
-msgid "Search"
-msgstr "搜索"
 
 #: templates/article/search.html:10
 msgid "Post containing"
@@ -515,7 +509,12 @@ msgstr "电子邮件已成功发送"
 msgid "was successfully sent to"
 msgstr "已成功发送到"
 
-#: templates/article/update.html:4
+#: templates/article/share.html:16
+#| msgid "Add E-mail"
+msgid "Send e-mail"
+msgstr "添加​​电子邮件"
+
+#: templates/article/update.html:5 templates/article/update.html:9
 msgid "Update a post"
 msgstr "更新帖子"
 
@@ -590,13 +589,11 @@ msgid "Contact"
 msgstr "联系"
 
 #: templates/information/detail.html:77 templates/information/list.html:24
-#, fuzzy
 #| msgid "followers"
 msgid "Followers"
 msgstr "关注者"
 
 #: templates/information/detail.html:84 templates/information/list.html:25
-#, fuzzy
 #| msgid "is following"
 msgid "Following"
 msgstr "关注了"
@@ -617,9 +614,13 @@ msgstr "好友"
 msgid "No users yet."
 msgstr "没有用户。"
 
-#: templates/information/update.html:4 templates/information/update.html:9
+#: templates/information/update.html:5 templates/information/update.html:10
 msgid "Edit your account"
 msgstr "编辑账号"
+
+#: templates/information/update.html:17
+msgid "Save changes"
+msgstr "保存更改"
 
 #: templates/openid/login.html:9
 msgid "OpenID Sign In"
@@ -686,6 +687,15 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr "您即将使用%(provider_name)s帐户登录%(site_name)s。最后一步，请填写以下表格："
+
+#~ msgid "This field is required."
+#~ msgstr "这个字段是必填项。"
+
+#~ msgid "Body:"
+#~ msgstr "描述"
+
+#~ msgid "A comma-separated list of tags."
+#~ msgstr "半角逗号\",\"分隔的标签列表。"
 
 #~ msgid "Nobody likes this post yet."
 #~ msgstr "还没有人喜欢这篇帖子。"

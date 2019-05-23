@@ -36,3 +36,14 @@ class PostForm(forms.ModelForm):
             'body': forms.Textarea(attrs={'class': 'w3-input w3-border'}),
             'tags': forms.TextInput(attrs={'class': 'w3-input w3-border'}),
         }
+
+
+class PostUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ('title', 'avatar', 'price', 'body')
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'w3-input w3-border'}),
+            'price': forms.TextInput(attrs={'class': 'w3-input w3-border'}),
+            'body': forms.Textarea(attrs={'class': 'w3-input w3-border'}),
+        }

@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.core.mail import send_mail
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Post
-from .forms import EmailPostForm, CommentForm, SearchForm, PostForm
+from .forms import EmailPostForm, CommentForm, SearchForm, PostForm, PostUpdateForm
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -27,14 +27,14 @@ def post_list(request):
 
     tag = request.GET.get('tag')
     if tag and tag != 'None':
-        if tag == 'Favourite':
+        if tag == '收藏':
             posts = request.user.posts_liked.all()
         else:
             posts = posts.filter(tags__name__in=[tag])
 
 
 
-    paginator = Paginator(posts, 8)
+    paginator = Paginator(posts, 9)
     page = request.GET.get('page')
 
     form = SearchForm()
@@ -172,7 +172,7 @@ def post_update(request, id):
     if request.user != post.author:
         return redirect(post.get_absolute_url())
     if request.method == 'POST':
-        form = PostForm(instance=post, data=request.POST, files=request.FILES)
+        form = PostUpdateForm(instance=post, data=request.POST, files=request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, 'Post updated successfully')

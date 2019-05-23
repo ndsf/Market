@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'w3.css' %}">
+    <link rel="stylesheet" href="{% static 'editormd/editormd.min.css' %}">
     <link href="https://cdn.bootcss.com/font-awesome/5.8.2/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.proxy.ustclug.org/css?family=Raleway">
     <style>
@@ -28,6 +29,7 @@
 </div>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/js-cookie/latest/js.cookie.min.js"></script>
+<script src="{% static 'editormd/editormd.min.js' %}"></script>
 <script>
     let csrftoken = Cookies.get('csrftoken');
 

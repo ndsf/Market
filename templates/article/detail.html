@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load article_tags %}
 {% load thumbnail %}
+{% load static %}
 {% load i18n %}
 
 {% block title %}
@@ -102,12 +103,9 @@
                 <div class="w3-container w3-white">
                     <form action="" method="post">
                         {% csrf_token %}
-                        <p>
-                            <textarea name="body" cols="40" rows="10"
-                                      class="w3-input w3-border" required
-                                      id="id_body">
-                            </textarea>
-                        </p>
+                        <div id="editormd">
+                            <textarea name="body" id="id_body" style="display:none" required></textarea>
+                        </div>
                         <p><input type="submit" value="{% trans 'Add comment' %}"
                                   class="w3-button w3-padding-large w3-white w3-border"></p>
                     </form>
@@ -252,6 +250,13 @@
             $('#like-button').click(function (e) {
                 $('#like-link').click();
                 return false;
+            });
+            $(function () {
+                var editor = editormd("editormd", {
+                    height: 320,
+                    syncScrolling: "single",
+                    path: "{% static 'editormd/lib/' %}" // Autoload modules mode, codemirror, marked... dependents libs path
+                });
             });
         });
     </script>
