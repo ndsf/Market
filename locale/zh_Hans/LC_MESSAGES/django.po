@@ -688,23 +688,26 @@ msgid ""
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr "您即将使用%(provider_name)s帐户登录%(site_name)s。最后一步，请填写以下表格："
 
-#~ msgid "This field is required."
-#~ msgstr "这个字段是必填项。"
+msgid "This field is required."
+msgstr "这个字段是必填项。"
 
-#~ msgid "Body:"
-#~ msgstr "描述"
+msgid "Body:"
+msgstr "描述"
 
-#~ msgid "A comma-separated list of tags."
-#~ msgstr "半角逗号\",\"分隔的标签列表。"
+msgid "A comma-separated list of tags."
+msgstr "半角逗号\",\"分隔的标签列表。"
 
-#~ msgid "Nobody likes this post yet."
-#~ msgstr "还没有人喜欢这篇帖子。"
+msgid "Nobody likes this post yet."
+msgstr "还没有人喜欢这篇帖子。"
 
-#~ msgid "likes"
-#~ msgstr "喜欢了"
+msgid "likes"
+msgstr "喜欢了"
 
-#~ msgid "created post"
-#~ msgstr "发布了"
+msgid "created post"
+msgstr "发布了"
 
-#~ msgid "commented post"
-#~ msgstr "评论了"
+msgid "commented post"
+msgstr "评论了"
+
+msgid "is following"
+msgstr "关注了"
