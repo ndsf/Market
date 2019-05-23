@@ -27,6 +27,7 @@ class SearchForm(forms.Form):
 
 
 class PostForm(forms.ModelForm):
+    price = forms.DecimalField(required=True, max_digits=6, min_value=0)
     class Meta:
         model = Post
         fields = ('title', 'avatar', 'price', 'body', 'tags')
@@ -39,6 +40,7 @@ class PostForm(forms.ModelForm):
 
 
 class PostUpdateForm(forms.ModelForm):
+    price = forms.DecimalField(required=True, max_digits=6, min_value=0)
     class Meta:
         model = Post
         fields = ('title', 'avatar', 'price', 'body')

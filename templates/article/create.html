@@ -10,7 +10,9 @@
             <p><label for="id_title">{% trans "Title:" %}</label> {{ form.title }}</p>
             <p><label for="id_avatar">{% trans "Avatar:" %}</label> {{ form.avatar }}</p>
             <p><label for="id_price">{% trans "Price:" %}</label> {{ form.price }}</p>
-            <p><label for="id_tags">{% trans "Tags:" %}</label> {{ form.tags }}</p>
+            <p><label
+                    for="id_tags">{% trans "Tags (Separated with comma, can be 'Goods' or 'Needs'):" %}</label> {{ form.tags }}
+            </p>
             <div id="editormd">
                 <textarea name="body" id="id_body" style="display:none"></textarea>
             </div>

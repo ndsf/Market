@@ -32,8 +32,6 @@ def post_list(request):
         else:
             posts = posts.filter(tags__name__in=[tag])
 
-
-
     paginator = Paginator(posts, 9)
     page = request.GET.get('page')
 
@@ -68,6 +66,7 @@ def post_list(request):
     return render(request, 'article/list.html', {'posts': posts, 'tag': tag, 'form': form})
 
 
+@login_required
 def post_detail(request, year, month, day, post):
     post = get_object_or_404(Post, slug=post, created__year=year, created__month=month,
                              created__day=day)
@@ -160,6 +159,8 @@ def post_create(request):
             messages.success(request, 'Post added successfully')
             # 重定向到新创建的数据对象的详情视图
             return redirect(new_item.get_absolute_url())
+        else:
+            return redirect('article:post_list')
     else:
         # 根据GET请求传入的参数建立表单对象
         form = PostForm(data=request.GET)
@@ -179,6 +180,7 @@ def post_update(request, id):
             return redirect(post.get_absolute_url())
         else:
             messages.error(request, 'Error updating your profile')
+            return redirect(post.get_absolute_url())
     else:
         form = PostForm(instance=post)
         return render(request, 'article/update.html', {'form': form})

@@ -40,8 +40,7 @@
                     {{ post.price }}
                 </button>
 
-                <a href="{% url "article:post_share" post.id %}" class="w3-button w3-white w3-hide-small"><i
-                        class="fas fa-share"></i>{% trans "Share" %}</a>
+
                 {% if request.user == post.author %}
                     <a href="{% url "article:post_update" post.id %}" class="w3-button w3-white w3-hide-small"><i
                             class="fas fa-edit"></i>{% trans "Update" %}</a>

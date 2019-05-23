@@ -9,7 +9,7 @@
         </a>
         {% load thumbnail %}
         {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
-            <a href="{{ user.get_absolute_url }}">
+            <a href="{% url 'information:dashboard' %}">
                 <img src="{{ im.url }}" style="width:45%;" class="w3-round"><br><br>
             </a>
         {% endthumbnail %}
@@ -36,6 +36,8 @@
         {% else %}
             <a href="{% url 'account_login' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
                     class="fa fa-envelope fa-fw w3-margin-right"></i>{% trans "LOGIN" %}</a>
+            <a href="{% url 'account_signup' %}" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
+                    class="fa fa-envelope fa-fw w3-margin-right"></i>{% trans "REGISTER" %}</a>
             <!-- if 语句在这里结束 -->
         {% endif %}
     </div>
