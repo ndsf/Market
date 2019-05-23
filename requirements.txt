@@ -21,4 +21,3 @@ text-unidecode==1.2
 urllib3==1.25.2
 django-rosetta==0.9.3
 polib==1.1.0
-martor=1.4.0

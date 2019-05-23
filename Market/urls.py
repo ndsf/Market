@@ -35,7 +35,6 @@ urlpatterns = i18n_patterns(
     path('accounts/profile/', dashboard),
     path('accounts/', include('allauth.urls')),
     path('rosetta/', include('rosetta.urls')),
-    path('martor/', include('martor.urls')),
 )
 
 if settings.DEBUG:
