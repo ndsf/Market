@@ -12,6 +12,7 @@ from actions.models import Action, Message
 
 
 # Create your views here.
+@login_required
 def user_list(request):
     users = User.objects.all()
     tag = request.GET.get('tag')
