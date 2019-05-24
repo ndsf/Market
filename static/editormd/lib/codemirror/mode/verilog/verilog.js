@@ -433,10 +433,14 @@ CodeMirror.defineMode("verilog", function(config, parserConfig) {
           curPunc = (/\\SVX_version/.test(stream.string))
             ? "\\SVX_version" : stream.string;
           stream.skipToEnd();
-          if (curPunc == "\\SV" && state.vxCodeActive) {state.vxCodeActive = false;};
-          if ((/\\SVX/.test(curPunc) && !state.vxCodeActive)
-            || (curPunc=="\\SVX_version" && state.vxCodeActive)) {state.vxCodeActive = true;};
-          style = "keyword";
+            if (curPunc == "\\SV" && state.vxCodeActive) {
+                state.vxCodeActive = false;
+            }
+            if ((/\\SVX/.test(curPunc) && !state.vxCodeActive)
+              || (curPunc == "\\SVX_version" && state.vxCodeActive)) {
+              state.vxCodeActive = true;
+          }
+            style = "keyword";
           state.svxCurCtlFlowChar  = state.svxPrevPrevCtlFlowChar
             = state.svxPrevCtlFlowChar = "";
           if (state.vxCodeActive == true) {

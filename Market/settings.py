@@ -25,9 +25,7 @@ SECRET_KEY = 'x@xvfmrn+s6n+oi+5pz-n3h-x7va$cw=_l0)=t__jqgaefjpg3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+ALLOWED_HOSTS = ['*'] # Not safe
 
 # Application definition
 SITE_ID = 1
@@ -179,3 +177,12 @@ ABSOLUTE_URL_OVERRIDES = {
 REDIS_HOST = 'localhost'
 REDIS_PORT = 6379
 REDIS_DB = 0
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'ndsffx17@163.com'
+EMAIL_HOST_PASSWORD = 'Market2019'
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = 'ndsffx17@163.com'

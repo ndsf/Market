@@ -67,9 +67,8 @@ def post_list(request):
 
 
 @login_required
-def post_detail(request, year, month, day, post):
-    post = get_object_or_404(Post, slug=post, created__year=year, created__month=month,
-                             created__day=day)
+def post_detail(request, id):
+    post = get_object_or_404(Post, id=id)
 
     # increment total post views by 1
     total_views = r.incr('post:{}:views'.format(post.id))

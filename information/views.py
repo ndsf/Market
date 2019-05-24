@@ -58,11 +58,17 @@ def dashboard(request):
         user__in=following)[
               :100]
     msgs = Message.objects.filter(user_to=request.user)[:100]
+    followers = Contact.objects.filter(user_to=request.user).values_list('user_from', flat=True)[:10]
+    followers = User.objects.filter(id__in=followers)
+    following = Contact.objects.filter(user_from=request.user).values_list('user_to', flat=True)[:10]
+    following = User.objects.filter(id__in=following)
 
     return render(request,
                   'information/dashboard.html',
                   {'actions': actions,
-                   'messages': msgs})
+                   'messages': msgs,
+                   'followers': followers,
+                   'following': following})
 
 
 @login_required

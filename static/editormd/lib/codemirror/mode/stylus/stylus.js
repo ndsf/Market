@@ -428,17 +428,15 @@
 
   function wordRegexp(words) {
     return new RegExp("^((" + words.join(")|(") + "))\\b");
-  };
-
-  function keySet(array) {
+  }
+    function keySet(array) {
     var keys = {};
     for (var i = 0; i < array.length; ++i) {
       keys[array[i]] = true;
     }
     return keys;
-  };
-
-  CodeMirror.registerHelper("hintWords", "stylus", hintWords);
+  }
+    CodeMirror.registerHelper("hintWords", "stylus", hintWords);
   CodeMirror.defineMIME("text/x-styl", "stylus");
 
 });

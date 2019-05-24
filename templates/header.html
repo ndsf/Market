@@ -15,7 +15,7 @@
         {% endthumbnail %}
 
         <h4><b>MARKET</b></h4>
-        <p class="w3-text-grey">By ndsf</p>
+        <p><a class="w3-text-grey" href="https://github.com/ndsf" style="text-decoration: none">By ndsf</a></p>
     </div>
     <div class="w3-bar-block">
         <a href="{% url 'article:post_list' %}" onclick="w3_close()"
@@ -56,9 +56,13 @@
             {% endfor %}
         </ul>
     </div>
-    <div class="w3-panel w3-large">
+    <div class="w3-container">
+        <p>
         <i class="fab fa-github w3-hover-opacity"></i>
         <i class="fab fa-google w3-hover-opacity"></i>
+        <a class="w3-text-gray" href="{% url 'admin:index' %}" style="text-decoration: none"> {% trans "Admin" %},</a>
+        <a class="w3-text-gray" href="{% url 'rosetta-old-home-redirect' %}" style="text-decoration: none"> {% trans "Help translation"%}</a>
+        </p>
     </div>
 </nav>
 

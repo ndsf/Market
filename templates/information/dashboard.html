@@ -84,6 +84,20 @@
                     {% endfor %}
                 </ul>
             </div>
+            <!-- Followers -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>{% trans "Followers" %}</h4>
+                </div>
+                {% include 'information/list_ul.html' with users=followers %}
+            </div>
+            <!-- Following -->
+            <div class="w3-card w3-margin">
+                <div class="w3-container w3-padding">
+                    <h4>{% trans "Following" %}</h4>
+                </div>
+                {% include 'information/list_ul.html' with users=following %}
+            </div>
         </div>
     </div>
 

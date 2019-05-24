@@ -36,7 +36,7 @@ class Post(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('article:post_detail', args=[self.created.year, self.created.month, self.created.day, self.slug])
+        return reverse('article:post_detail', args=[self.id])
 
     def save(self, *args, **kwargs):
         if not self.slug:

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-23 23:27+0800\n"
-"PO-Revision-Date: 2019-05-24 00:02+0806\n"
+"POT-Creation-Date: 2019-05-24 09:20+0800\n"
+"PO-Revision-Date: 2019-05-24 09:22+0806\n"
 "Last-Translator: b'  <ndsf@qq.com>'\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,11 +19,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Translated-Using: django-rosetta 0.9.3\n"
 
-#: Market/settings.py:156
+#: Market/settings.py:154
 msgid "English"
 msgstr "英文"
 
-#: Market/settings.py:157
+#: Market/settings.py:155
 msgid "Simplified Chinese"
 msgstr "简体中文"
 
@@ -39,8 +39,8 @@ msgstr "​​电子邮件"
 msgid "To"
 msgstr "至"
 
-#: article/forms.py:10 templates/article/detail.html:90
-#: templates/article/detail.html:118
+#: article/forms.py:10 templates/article/detail.html:89
+#: templates/article/detail.html:117
 msgid "Comments"
 msgstr "评论"
 
@@ -151,6 +151,7 @@ msgstr ""
 
 #: templates/account/login.html:11 templates/account/login.html:33
 #: templates/account/login.html:46
+#: templates/account/password_reset_done.html:17
 msgid "Sign In"
 msgstr "登录"
 
@@ -249,6 +250,25 @@ msgstr "如果您在重置密码时遇到任何问题，请与我们联系。"
 #: templates/account/password_reset_done.html:11
 msgid "Password Reset Email Sent."
 msgstr "密码重置电子邮件已发送。"
+
+#: templates/account/password_reset_done.html:17
+#, fuzzy
+#| msgid ""
+#| "We have sent an e-mail to you for\n"
+#| "verification. Please click on the link inside this e-mail. Please\n"
+#| "contact us if you do not receive it within a few minutes."
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes. "
+msgstr "我们已经发送了一封电子邮件给你验证。请点击此电子邮件中的链接。请如果你在几分钟内没有收到它，请联系我们。"
+
+#: templates/account/password_reset_done.html:17
+msgid "You will be redirected to "
+msgstr "你将被重定位到"
+
+#: templates/account/password_reset_done.html:17
+msgid "page in 5 seconds."
+msgstr "页面在5秒内"
 
 #: templates/account/password_reset_from_key.html:7
 msgid "Bad Token"
@@ -373,9 +393,25 @@ msgstr "发送"
 msgid "ago"
 msgstr "之前"
 
-#: templates/actions/message_full.html:12 templates/article/detail.html:49
+#: templates/actions/message_full.html:12 templates/article/detail.html:48
 msgid "Delete"
 msgstr "删除"
+
+#: templates/actions/words.html:2
+msgid "likes"
+msgstr "喜欢了"
+
+#: templates/actions/words.html:3
+msgid "created post"
+msgstr "发布了"
+
+#: templates/actions/words.html:4
+msgid "commented post"
+msgstr "评论了"
+
+#: templates/actions/words.html:5
+msgid "is following"
+msgstr "关注了"
 
 #: templates/article/create.html:4 templates/article/create.html:7
 msgid "Create a post"
@@ -396,53 +432,49 @@ msgstr "价格"
 
 #: templates/article/create.html:14
 msgid "Tags (Separated with comma, can be 'Goods' or 'Needs'):"
-msgstr "标签（用半角逗号','分割，可以是'商品','需求','数码','书籍','电器','服饰','化妆'等）"
+msgstr "标签（用半角逗号','分割，可以是'商品','需求','数码','书籍','电器','服饰','美妆'等）"
 
 #: templates/article/create.html:19
 msgid "Create"
 msgstr "创建帖子"
 
-#: templates/article/detail.html:44 templates/article/share.html:12
-msgid "Share"
-msgstr "分享"
-
-#: templates/article/detail.html:47 templates/article/update.html:18
+#: templates/article/detail.html:46 templates/article/update.html:18
 msgid "Update"
 msgstr "更新"
 
-#: templates/article/detail.html:84
+#: templates/article/detail.html:83
 msgid "CONTACT"
 msgstr "联系"
 
-#: templates/article/detail.html:101
+#: templates/article/detail.html:100
 msgid "Add a new comment"
 msgstr "添加​​新评论"
 
-#: templates/article/detail.html:109
+#: templates/article/detail.html:108
 msgid "Add comment"
 msgstr "添加​​新评论"
 
-#: templates/article/detail.html:140
+#: templates/article/detail.html:139
 msgid "There are no comments yet."
 msgstr "还没有评论。"
 
-#: templates/article/detail.html:166
+#: templates/article/detail.html:165
 msgid "Liked by"
 msgstr "喜欢的人"
 
-#: templates/article/detail.html:175
+#: templates/article/detail.html:174
 msgid "Tags"
 msgstr "标签"
 
-#: templates/article/detail.html:185
+#: templates/article/detail.html:184
 msgid "There are no tags yet."
 msgstr "还没有标签。"
 
-#: templates/article/detail.html:195
+#: templates/article/detail.html:194
 msgid "Similar posts"
 msgstr "相似的帖子"
 
-#: templates/article/detail.html:211
+#: templates/article/detail.html:210
 msgid "There are no similar posts yet."
 msgstr "目前还没有相似的帖子。"
 
@@ -480,10 +512,10 @@ msgstr "服饰"
 
 #: templates/article/list.html:32
 msgid "Makeups"
-msgstr "化妆"
+msgstr "美妆"
 
 #: templates/article/list.html:37 templates/article/search.html:4
-#: templates/article/search.html:23 templates/information/list.html:30
+#: templates/article/search.html:23
 msgid "Search"
 msgstr "搜索"
 
@@ -519,6 +551,10 @@ msgstr "电子邮件已成功发送"
 msgid "was successfully sent to"
 msgstr "已成功发送到"
 
+#: templates/article/share.html:12
+msgid "Share"
+msgstr "分享"
+
 #: templates/article/share.html:16
 msgid "Send e-mail"
 msgstr "添加​​电子邮件"
@@ -541,7 +577,7 @@ msgstr "创建"
 
 #: templates/header.html:32 templates/information/dashboard.html:17
 msgid "DASHBOARD"
-msgstr "仪表盘"
+msgstr "我的"
 
 #: templates/header.html:34
 msgid "LOGOUT"
@@ -552,7 +588,6 @@ msgid "LOGIN"
 msgstr "登录"
 
 #: templates/header.html:40
-#| msgid "LOGIN/REGISTER"
 msgid "REGISTER"
 msgstr "注册"
 
@@ -560,9 +595,17 @@ msgstr "注册"
 msgid "Language"
 msgstr "语言"
 
+#: templates/header.html:63
+msgid "Admin"
+msgstr "管理后台"
+
+#: templates/header.html:64
+msgid "Help translation"
+msgstr "帮助翻译"
+
 #: templates/information/dashboard.html:5
 msgid "Dashboard"
-msgstr "仪表盘"
+msgstr "我的"
 
 #: templates/information/dashboard.html:20
 msgid "Update profile"
@@ -590,6 +633,16 @@ msgstr "新鲜事"
 msgid "There is nothing happened."
 msgstr "没有新鲜事。"
 
+#: templates/information/dashboard.html:90
+#: templates/information/detail.html:77 templates/information/list.html:24
+msgid "Followers"
+msgstr "关注者"
+
+#: templates/information/dashboard.html:97
+#: templates/information/detail.html:84 templates/information/list.html:25
+msgid "Following"
+msgstr "关注了"
+
 #: templates/information/detail.html:14
 msgid "Posts"
 msgstr "帖子"
@@ -601,14 +654,6 @@ msgstr "关注者"
 #: templates/information/detail.html:62
 msgid "Contact"
 msgstr "联系"
-
-#: templates/information/detail.html:77 templates/information/list.html:24
-msgid "Followers"
-msgstr "关注者"
-
-#: templates/information/detail.html:84 templates/information/list.html:25
-msgid "Following"
-msgstr "关注了"
 
 #: templates/information/list.html:4
 msgid "People"
@@ -699,27 +744,3 @@ msgid ""
 "You are about to use your %(provider_name)s account to login to\n"
 "%(site_name)s. As a final step, please complete the following form:"
 msgstr "您即将使用%(provider_name)s帐户登录%(site_name)s。最后一步，请填写以下表格："
-
-#~ msgid "This field is required."
-#~ msgstr "这个字段是必填项。"
-
-#~ msgid "Body:"
-#~ msgstr "描述"
-
-#~ msgid "A comma-separated list of tags."
-#~ msgstr "半角逗号\",\"分隔的标签列表。"
-
-#~ msgid "Nobody likes this post yet."
-#~ msgstr "还没有人喜欢这篇帖子。"
-
-#~ msgid "likes"
-#~ msgstr "喜欢了"
-
-#~ msgid "created post"
-#~ msgstr "发布了"
-
-#~ msgid "commented post"
-#~ msgstr "评论了"
-
-#~ msgid "is following"
-#~ msgstr "关注了"
