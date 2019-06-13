@@ -22,7 +22,7 @@ class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     avatar = models.ImageField(upload_to='avatar/%Y%m%d/', blank=True, default='default-avatar.jpg')
     date_of_birth = models.DateField(blank=True, null=True)
-    description = models.TextField(max_length=500, blank=True)
+    description = models.TextField(max_length=500, blank=True, default='Hello!')
     following = models.ManyToManyField('self', through=Contact, related_name='followers', symmetrical=False)
 
     def __str__(self):
