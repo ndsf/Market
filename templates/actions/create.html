@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+{% load thumbnail %}
 {% block title %}{% trans "Send a message" %}{% endblock %}
 {% block content %}
     {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
