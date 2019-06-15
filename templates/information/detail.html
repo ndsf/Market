@@ -5,6 +5,13 @@
 {% load thumbnail %}
 {% block title %}{{ user.username }}{% endblock %}
 {% block content %}
+    {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+        <a href="{{ user.get_absolute_url }}"><img src="{{ im.url }}" style="width:65px;"
+                                                   class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+        </a>
+    {% endthumbnail %}
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+            class="fa fa-bars"></i></span>
     <div class="w3-row">
         <!-- Big cards -->
         <div class="w3-col l8 s12">
