@@ -6,13 +6,21 @@
 {% endblock %}
 
 {% block content %}
+    {% thumbnail user.profile.avatar "300x300" crop="100%" as im %}
+        <a href="{{ user.get_absolute_url }}"><img src="{{ im.url }}" style="width:65px;"
+                                                   class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+        </a>
+    {% endthumbnail %}
+    <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+            class="fa fa-bars"></i></span>
     <div class="w3-container w3-padding-large" style="margin-bottom:32px">
         <h1>{% trans "Edit your account" %}</h1>
         <form action="." method="post" enctype="multipart/form-data" novalidate>
             {% csrf_token %}
             <p><label for="id_avatar">{% trans "Avatar:" %}</label> {{ form.avatar }}</p>
             <div id="editormd">
-                <textarea name="description" id="id_description" style="display:none">{{ form.description.value }}</textarea>
+                <textarea name="description" id="id_description"
+                          style="display:none">{{ form.description.value }}</textarea>
             </div>
             <p><input type="submit" value="{% trans 'Save changes' %}" class="w3-button w3-white"></p>
         </form>
